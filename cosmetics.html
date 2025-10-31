@@ -5,6 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cosmetics - ZAID STORE</title>
 <link rel="stylesheet" href="style.css">
+<style>
+  body {font-family:'Poppins',sans-serif; background:#f4f4f9; margin:0; padding:0; color:#333;}
+  header {display:flex; align-items:center; padding:15px 30px; background:white; box-shadow:0 4px 15px rgba(0,0,0,0.1);}
+  header img.logo {width:130px; margin-right:20px;}
+  header h2 {color:#ff6600;}
+  .product-container {display:flex; flex-wrap:wrap; justify-content:center; gap:20px; padding:20px;}
+  .product-card {background:white; width:220px; border-radius:12px; padding:15px; box-shadow:0 4px 15px rgba(0,0,0,0.1); transition:0.3s; text-align:center;}
+  .product-card:hover {transform:translateY(-5px); box-shadow:0 8px 25px rgba(0,0,0,0.15);}
+  .product-card img {width:100%; height:180px; object-fit:cover; border-radius:10px;}
+  .product-card h3 {font-size:20px; color:#ff6600; margin:10px 0 5px;}
+  .product-card p.description {font-size:14px; color:#555; margin-bottom:10px; min-height:40px;}
+  .product-card p.price {font-size:16px; font-weight:bold; margin-bottom:10px;}
+  .product-card button.order-btn {background:#25d366; color:white; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; transition:0.3s;}
+  .product-card button.order-btn:hover {background:#128c3e;}
+</style>
 </head>
 <body>
 
@@ -46,12 +61,18 @@ function loadProducts(category) {
       card.innerHTML = `
         <img src="${p.image}" alt="${p.name}">
         <h3>${p.name}</h3>
-        <p>${p.description}</p>
-        <p>Price: ${p.price}</p>
+        <p class="description">${p.description}</p>
+        <p class="price">RS ${p.price}</p>
+        <button class="order-btn" onclick="orderWhatsApp('${p.name}', '${category}', '${p.price}')">Order on WhatsApp</button>
       `;
       container.appendChild(card);
     }
   });
+}
+
+function orderWhatsApp(name, category, price) {
+  const message = `Hello, I want to order:\nProduct: ${name}\nCategory: ${category}\nPrice: RS ${price}`;
+  window.open(`https://wa.me/03469489167?text=${encodeURIComponent(message)}`, '_blank');
 }
 
 loadProducts("cosmetics");

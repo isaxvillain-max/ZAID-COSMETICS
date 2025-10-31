@@ -5,6 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Staff - ZAID STORE</title>
 <link rel="stylesheet" href="style.css">
+<style>
+  body {font-family:'Poppins',sans-serif; background:#f4f4f9; margin:0; padding:0; color:#333;}
+  header {display:flex; align-items:center; padding:15px 30px; background:white; box-shadow:0 4px 15px rgba(0,0,0,0.1);}
+  header img.logo {width:130px; margin-right:20px;}
+  header h2 {color:#ff6600;}
+  .staff-container {display:flex; flex-wrap:wrap; justify-content:center; gap:20px; padding:20px;}
+  .staff-card {position:relative; background:white; width:200px; border-radius:12px; overflow:hidden; box-shadow:0 4px 15px rgba(0,0,0,0.1); text-align:center; transition:0.3s;}
+  .staff-card:hover {transform:translateY(-5px); box-shadow:0 8px 25px rgba(0,0,0,0.15);}
+  .staff-card img {width:100%; height:220px; object-fit:cover;}
+  .staff-card .staff-info {position:absolute; bottom:0; width:100%; background:rgba(0,0,0,0.6); color:white; padding:10px; text-align:center;}
+  .staff-card .staff-info h3 {font-size:18px; margin:0 0 5px;}
+  .staff-card .staff-info p {font-size:14px; margin:0;}
+  .staff-card .staff-info p.contact {font-size:13px; color:#ffd700; margin-top:3px;}
+</style>
 </head>
 <body>
 
@@ -45,8 +59,11 @@ function loadStaff() {
       card.className = "staff-card";
       card.innerHTML = `
         <img src="${s.photo}" alt="${s.name}">
-        <h3>${s.name}</h3>
-        <p>${s.role}</p>
+        <div class="staff-info">
+          <h3>${s.name}</h3>
+          <p>${s.role}</p>
+          <p class="contact">${s.contact}</p>
+        </div>
       `;
       container.appendChild(card);
     }

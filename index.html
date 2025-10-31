@@ -4,173 +4,200 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ZAID STORE</title>
-  <link rel="stylesheet" href="style.css">
   <style>
-    * {margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-    body {background:#f4f4f9;color:#333;line-height:1.6;overflow-x:hidden;}
-    header {display:flex;align-items:center;justify-content:space-between;padding:15px 30px;background:white;box-shadow:0 4px 15px rgba(0,0,0,0.1);position:sticky;top:0;z-index:1000;border-bottom:1px solid #eee;}
-    header .logo {width:130px;}
-    header input#searchBar {flex:1;margin:0 20px;padding:10px 15px;border-radius:10px;border:1px solid #ccc;transition:0.3s;}
-    header input#searchBar:focus {border-color:#ff6600;outline:none;box-shadow:0 0 8px rgba(255,102,0,0.3);}
-    header nav a {margin-left:15px;padding:8px 14px;border-radius:8px;transition:0.3s;background:#ff6600;color:white;font-weight:500;text-decoration:none;box-shadow:0 2px 6px rgba(0,0,0,0.1);}
-    header nav a:hover {background:#e65c00;}
-    main {padding:60px 20px;text-align:center;}
-    main h1 {font-size:36px;color:#ff6600;margin-bottom:20px;text-shadow:1px 1px 3px rgba(0,0,0,0.1);}
-    main p {font-size:18px;color:#555;margin-bottom:40px;}
-    .whatsapp-float {position:fixed;bottom:20px;right:20px;background:#25d366;color:white;padding:18px;border-radius:50%;font-size:26px;box-shadow:0 4px 15px rgba(0,0,0,0.3);z-index:1000;transition:0.3s;}
-    .whatsapp-float:hover {transform:scale(1.1);}
-    #adminLoginPopup {position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:flex;justify-content:center;align-items:center;z-index:10000;opacity:0;pointer-events:none;transition:0.3s;}
-    #adminLoginPopup.active {opacity:1;pointer-events:auto;}
-    .admin-box {background:white;padding:30px;border-radius:15px;width:90%;max-width:400px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,0.25);}
-    .admin-box h2 {color:#ff6600;margin-bottom:20px;}
-    .admin-box input {width:100%;padding:10px;margin:10px 0;border:1px solid #ccc;border-radius:10px;}
-    .admin-box button {background:#ff6600;color:white;border:none;padding:10px 20px;border-radius:10px;font-weight:bold;cursor:pointer;transition:0.3s;}
-    .admin-box button:hover {background:#e65c00;}
-    /* Agreement Popup */
-    #rulesPopup {position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:flex;justify-content:center;align-items:center;z-index:9999;opacity:0;pointer-events:none;transition:0.3s;}
-    #rulesPopup.active {opacity:1;pointer-events:auto;}
-    .rules-box {background:white;padding:25px 30px;border-radius:15px;width:90%;max-width:500px;max-height:80%;overflow-y:auto;box-shadow:0 8px 25px rgba(0,0,0,0.2);text-align:left;}
-    .rules-box h2 {color:#ff6600;margin-bottom:15px;text-align:center;}
-    .rules-box p {margin-bottom:10px;color:#555;line-height:1.5;}
-    .rules-box button {background:#ff6600;color:white;border:none;padding:10px 20px;border-radius:10px;font-weight:bold;cursor:pointer;display:block;margin:20px auto 0;transition:0.3s;}
-    .rules-box button:hover {background:#e65c00;}
+    body { font-family: Arial, sans-serif; margin:0; padding:0; background-color:#fff; }
+    header { display:flex; align-items:center; justify-content:space-between; padding:10px 20px; background:#f8f8f8; box-shadow:0 2px 5px rgba(0,0,0,0.1);}
+    #logo { font-weight:bold; font-size:24px; }
+    #searchBar { flex:1; margin:0 20px; }
+    #searchBar input { width:100%; padding:8px; font-size:16px; }
+    nav { display:flex; gap:15px; }
+    nav a { text-decoration:none; color:#333; font-weight:bold; }
+    .category-btn { margin:10px; padding:10px 20px; background:#007bff; color:#fff; border:none; cursor:pointer; border-radius:5px; }
+    .product-card { display:inline-block; width:200px; margin:10px; border:1px solid #ddd; border-radius:8px; padding:10px; text-align:center; vertical-align:top; }
+    .product-card img { width:100%; height:150px; object-fit:cover; border-radius:5px; }
+    .admin-panel, .staff-page, .rules-page { padding:20px; }
+    input, textarea { width:100%; padding:8px; margin:5px 0; box-sizing:border-box; }
+    button { padding:8px 12px; margin-top:5px; background:#28a745; color:#fff; border:none; border-radius:5px; cursor:pointer; }
+    h2 { margin-top:0; }
+    .staff-member { border:1px solid #ddd; padding:10px; border-radius:5px; margin:10px 0; display:flex; align-items:center; gap:10px; }
+    .staff-member img { width:60px; height:60px; object-fit:cover; border-radius:50%; }
   </style>
 </head>
 <body>
 
-  <header>
-    <img src="./logo.png" alt="ZAID STORE Logo" class="logo">
-    <input type="text" id="searchBar" placeholder="Search products...">
-    <nav>
-      <a href="cosmetics.html">Cosmetics</a>
-      <a href="garments.html">Garments</a>
-      <a href="perfumes.html">Perfumes</a>
-      <a href="staff.html">Staff</a>
-    </nav>
-  </header>
+<header>
+  <div id="logo">ZAID STORE</div>
+  <div id="searchBar"><input type="text" placeholder="Search Products..." id="searchInput"></div>
+  <nav>
+    <a href="#" onclick="loadProducts('Cosmetics')">Cosmetics</a>
+    <a href="#" onclick="loadProducts('Garments')">Garments</a>
+    <a href="#" onclick="loadProducts('Perfumes')">Perfumes</a>
+    <a href="#" onclick="showAdmin()">Admin</a>
+    <a href="#" onclick="showStaff()">Staff</a>
+    <a href="#" onclick="showRules()">Rules</a>
+  </nav>
+</header>
 
-  <main>
-    <h1>Welcome to ZAID STORE 💫</h1>
-    <p>Your one-stop shop for Cosmetics, Garments, and Perfumes. High-quality products, trusted service.</p>
-  </main>
+<div id="productContainer" style="padding:20px;"></div>
 
-  <a href="https://wa.me/03469489167" class="whatsapp-float" target="_blank">💬</a>
+<!-- Admin Panel -->
+<div class="admin-panel" id="adminPanel" style="display:none;">
+  <h2>Admin Panel</h2>
+  <label>Product Name:</label>
+  <input type="text" id="adminName">
+  <label>Product Price:</label>
+  <input type="text" id="adminPrice">
+  <label>Product Description:</label>
+  <textarea id="adminDesc"></textarea>
+  <label>Product Image URL:</label>
+  <input type="text" id="adminImage">
+  <label>Category:</label>
+  <select id="adminCategory">
+    <option value="Cosmetics">Cosmetics</option>
+    <option value="Garments">Garments</option>
+    <option value="Perfumes">Perfumes</option>
+  </select>
+  <button onclick="addProduct()">Add Product</button>
+  <button onclick="hideAdmin()">Close Admin</button>
+  <hr>
+  <div id="adminProducts"></div>
+</div>
 
-  <!-- ===== Admin Login Popup ===== -->
-  <div id="adminLoginPopup">
-    <div class="admin-box">
-      <h2>Admin Login</h2>
-      <input type="password" id="adminPassword" placeholder="Enter password">
-      <button id="loginBtn">Login</button>
-    </div>
-  </div>
+<!-- Staff Page -->
+<div class="staff-page" id="staffPage" style="display:none;">
+  <h2>Our Staff</h2>
+  <div id="staffContainer"></div>
+  <label>Name:</label><input type="text" id="staffName">
+  <label>Role:</label><input type="text" id="staffRole">
+  <label>Image URL:</label><input type="text" id="staffImage">
+  <button onclick="addStaff()">Add Staff</button>
+  <button onclick="hideStaff()">Close Staff</button>
+</div>
 
-  <!-- ===== Rules / Agreement Popup ===== -->
-  <div id="rulesPopup">
-    <div class="rules-box">
-      <h2>Welcome to ZAID STORE!</h2>
-      <p id="typedRules"></p>
-      <button id="agreeBtn">I Agree</button>
-    </div>
-  </div>
+<!-- Rules Page -->
+<div class="rules-page" id="rulesPage" style="display:none;">
+  <h2>Rules & Payment Methods</h2>
+  <p>Payments accepted: JazzCash, EasyPaisa, Cash on Delivery</p>
+  <button onclick="hideRules()">Close Rules</button>
+</div>
 
-  <!-- ===== Firebase Setup ===== -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-analytics.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyBNvUn85iXp6ZXMTBLAKYR_OsuXHPDk0TM",
-      authDomain: "zaid-cosmetics-f3792.firebaseapp.com",
-      databaseURL: "https://zaid-cosmetics-f3792-default-rtdb.firebaseio.com",
-      projectId: "zaid-cosmetics-f3792",
-      storageBucket: "zaid-cosmetics-f3792.firebasestorage.app",
-      messagingSenderId: "1027145686032",
-      appId: "1:1027145686032:web:e3797f9b0795ace2987e95",
-      measurementId: "G-TP33NHR7B2"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-  </script>
-
-  <script>
-    // ===== Admin Popup =====
-    const adminPopup = document.getElementById("adminLoginPopup");
-    const loginBtn = document.getElementById("loginBtn");
-    const adminPassword = document.getElementById("adminPassword");
-
-    document.addEventListener("keydown", (e) => {
-      if (e.shiftKey && e.key.toLowerCase() === "z") {
-        e.preventDefault();
-        adminPopup.classList.add("active");
-      }
+<script>
+  // Products Handling
+  function loadProducts(category){
+    hideAllSections();
+    const container = document.getElementById('productContainer');
+    container.innerHTML = '';
+    const products = JSON.parse(localStorage.getItem(category)) || [];
+    products.forEach((p,i)=>{
+      const card = document.createElement('div');
+      card.className = 'product-card';
+      card.innerHTML = `
+        <img src="${p.image}" alt="${p.name}">
+        <h3>${p.name}</h3>
+        <p>${p.desc}</p>
+        <strong>PKR ${p.price}</strong><br>
+        <a href="https://wa.me/03469489167?text=I want to order ${encodeURIComponent(p.name)}" target="_blank">
+          Order on WhatsApp
+        </a>
+      `;
+      container.appendChild(card);
     });
+  }
 
-    loginBtn.addEventListener("click", () => {
-      if (adminPassword.value === "@zaid034") {
-        localStorage.setItem("isAdmin", "true");
-        alert("Welcome Admin! Access Granted ✅");
-        window.location.href = "admin.html";
-      } else {
-        alert("Incorrect Password ❌");
-      }
-    });
+  function addProduct(){
+    const name=document.getElementById('adminName').value;
+    const price=document.getElementById('adminPrice').value;
+    const desc=document.getElementById('adminDesc').value;
+    const image=document.getElementById('adminImage').value;
+    const category=document.getElementById('adminCategory').value;
+    if(!name||!price||!desc||!image){ alert('Fill all fields'); return; }
+    const products=JSON.parse(localStorage.getItem(category))||[];
+    products.push({name,price,desc,image});
+    localStorage.setItem(category,JSON.stringify(products));
+    alert('Product added');
+    showAdminProducts();
+  }
 
-    adminPopup.addEventListener("click", (e) => {
-      if (e.target === adminPopup) adminPopup.classList.remove("active");
-    });
+  function showAdmin(){
+    hideAllSections();
+    document.getElementById('adminPanel').style.display='block';
+    showAdminProducts();
+  }
+  function hideAdmin(){ document.getElementById('adminPanel').style.display='none'; }
 
-    // ===== Rules / Agreement Popup =====
-    (function rulesTyping() {
-      const popup = document.getElementById('rulesPopup');
-      const typedRules = document.getElementById('typedRules');
-      const agreeBtn = document.getElementById('agreeBtn');
-
-      const rulesText = `
-Welcome to ZAID STORE! 💫
-
-Please read carefully before using our website.
-
-🧾 General Rules:
-- Provide accurate personal details including your full name, phone number, and address.
-- Orders are confirmed via WhatsApp; ensure your number is correct.
-- Avoid fake orders or misuse of this system.
-- All products are guaranteed 100% original & high quality.
-- Payments accepted: JazzCash, EasyPaisa, Cash on Delivery.
-
-🛍️ How to Use:
-1️⃣ Browse categories (Cosmetics, Garments, Perfumes).
-2️⃣ Click on a product to view details.
-3️⃣ Press "Order" to send product name & price to WhatsApp.
-4️⃣ Only the admin can add or remove products & staff.
-
-🚚 Delivery & Support:
-- Provide clear delivery instructions.
-- Support available via WhatsApp: 03469489167
-- Business hours: 9:00 AM – 8:00 PM.
-
-Thank you for choosing ZAID STORE! Enjoy shopping 💖
-`;
-
-      if (!localStorage.getItem('agreedToRules')) {
-        popup.classList.add('active');
-        let i = 0;
-        (function type() {
-          if (i < rulesText.length) {
-            typedRules.textContent += rulesText.charAt(i);
-            i++;
-            setTimeout(type, 10);
-          }
-        })();
-      }
-
-      agreeBtn.addEventListener('click', () => {
-        localStorage.setItem('agreedToRules', 'true');
-        popup.classList.remove('active');
+  function showAdminProducts(){
+    const container=document.getElementById('adminProducts');
+    container.innerHTML='';
+    ['Cosmetics','Garments','Perfumes'].forEach(category=>{
+      const products=JSON.parse(localStorage.getItem(category))||[];
+      products.forEach((p,i)=>{
+        const div=document.createElement('div');
+        div.innerHTML=`<strong>${category}:</strong> ${p.name} - PKR ${p.price} 
+        <button onclick="deleteProduct('${category}',${i})">Delete</button>`;
+        container.appendChild(div);
       });
-    })();
-  </script>
+    });
+  }
+
+  function deleteProduct(category,index){
+    const products=JSON.parse(localStorage.getItem(category));
+    products.splice(index,1);
+    localStorage.setItem(category,JSON.stringify(products));
+    showAdminProducts();
+  }
+
+  // Staff Handling
+  function showStaff(){ hideAllSections(); document.getElementById('staffPage').style.display='block'; showStaffMembers();}
+  function hideStaff(){ document.getElementById('staffPage').style.display='none'; }
+  function addStaff(){
+    const name=document.getElementById('staffName').value;
+    const role=document.getElementById('staffRole').value;
+    const image=document.getElementById('staffImage').value;
+    if(!name||!role||!image){ alert('Fill all fields'); return; }
+    const staff=JSON.parse(localStorage.getItem('staff'))||[];
+    staff.push({name,role,image});
+    localStorage.setItem('staff',JSON.stringify(staff));
+    showStaffMembers();
+  }
+  function showStaffMembers(){
+    const container=document.getElementById('staffContainer');
+    container.innerHTML='';
+    const staff=JSON.parse(localStorage.getItem('staff'))||[];
+    staff.forEach(s=>{
+      const div=document.createElement('div');
+      div.className='staff-member';
+      div.innerHTML=`<img src="${s.image}"><div><strong>${s.name}</strong><br>${s.role}</div>`;
+      container.appendChild(div);
+    });
+  }
+
+  // Rules Page
+  function showRules(){ hideAllSections(); document.getElementById('rulesPage').style.display='block'; }
+  function hideRules(){ document.getElementById('rulesPage').style.display='none'; }
+
+  function hideAllSections(){
+    document.getElementById('productContainer').innerHTML='';
+    document.getElementById('adminPanel').style.display='none';
+    document.getElementById('staffPage').style.display='none';
+    document.getElementById('rulesPage').style.display='none';
+  }
+
+  // Search
+  document.getElementById('searchInput').addEventListener('input',function(){
+    const query=this.value.toLowerCase();
+    ['Cosmetics','Garments','Perfumes'].forEach(category=>{
+      const products=JSON.parse(localStorage.getItem(category))||[];
+      products.forEach((p,i)=>{
+        if(p.name.toLowerCase().includes(query)||p.desc.toLowerCase().includes(query)){
+          loadProducts(category);
+        }
+      });
+    });
+  });
+
+  // Load default
+  loadProducts('Cosmetics');
+</script>
 
 </body>
 </html>
